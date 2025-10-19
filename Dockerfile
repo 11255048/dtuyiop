@@ -7,7 +7,7 @@ RUN apk add --no-cache wget tar ca-certificates tzdata
 # 設定時區
 ENV TZ=Asia/Taipei
 
-# 下載 OpenList 最新 Linux 版本
+# 下載 OpenList 最新 Linux 版本並安裝
 RUN wget -O /tmp/openlist.tar.gz https://github.com/OpenListTeam/OpenList/releases/latest/download/openlist-linux-amd64.tar.gz \
     && mkdir -p /tmp/openlist \
     && tar -xzf /tmp/openlist.tar.gz -C /tmp/openlist \
