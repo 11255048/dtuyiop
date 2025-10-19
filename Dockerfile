@@ -9,9 +9,11 @@ ENV TZ=Asia/Taipei
 
 # 下載 OpenList 最新 Linux 版本
 RUN wget -O /tmp/openlist.tar.gz https://github.com/OpenListTeam/OpenList/releases/latest/download/openlist-linux-amd64.tar.gz \
-    && tar -xzf /tmp/openlist.tar.gz -C /usr/local/bin \
+    && mkdir -p /tmp/openlist \
+    && tar -xzf /tmp/openlist.tar.gz -C /tmp/openlist \
+    && mv /tmp/openlist/openlist-linux-amd64/openlist /usr/local/bin/openlist \
     && chmod +x /usr/local/bin/openlist \
-    && rm /tmp/openlist.tar.gz
+    && rm -rf /tmp/openlist /tmp/openlist.tar.gz
 
 # 建立資料目錄
 RUN mkdir -p /data
@@ -21,4 +23,4 @@ WORKDIR /data
 EXPOSE 5244
 
 # 啟動 OpenList 伺服器
-CMD ["openlist", "server", "--data", "/data"]
+CMD ["/usr/local/bin/openlist", "server", "--data", "/data"]
